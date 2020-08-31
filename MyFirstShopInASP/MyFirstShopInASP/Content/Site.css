@@ -5,3 +5,11 @@
 ui-state-highline {
     border: 10px dashed #ccc;
 }
+span.ajax-text {
+    display: none;
+}
+
+div.new-categories {
+    margin-top: 80px;
+    position: relative;
+}
