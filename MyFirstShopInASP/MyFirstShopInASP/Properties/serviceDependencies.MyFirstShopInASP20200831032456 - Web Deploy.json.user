@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "restored": false,
+      "restoreTime": "2020-08-31T01:51:28.3176742Z"
+    }
+  },
+  "parameters": {
+    "MyFirstShopInASP20200831032456.subscriptionId": {
+      "Type": "subscription",
+      "Value": "f01ab307-23f7-49a2-a557-c4ed9a112e9b"
+    },
+    "MyFirstShopInASP20200831032456.resourceName": {
+      "Type": null,
+      "Value": "MyFirstShopInASP20200831032456"
+    },
+    "subscriptionId": {
+      "Type": "subscription",
+      "Value": "f01ab307-23f7-49a2-a557-c4ed9a112e9b"
+    },
+    "MyFirstShopInASP20200831032456.resourceGroupName": {
+      "Type": "resourceGroup",
+      "Value": "Nauka"
+    },
+    "MyFirstShopInASP20200831032456.resourceGroupLocation": {
+      "Type": null,
+      "Value": "westeurope"
+    }
+  }
+}

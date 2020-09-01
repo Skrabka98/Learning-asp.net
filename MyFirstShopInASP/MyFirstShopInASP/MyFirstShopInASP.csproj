@@ -509,6 +509,8 @@
     <Content Include="fileman\lang\tr.json" />
     <Content Include="fileman\web.config" />
     <Content Include="Areas\Admin\Views\Shop\Categories.cshtml" />
+    <None Include="Properties\PublishProfiles\MyFirstShopInASP20200831032456 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\MyFirstShopInASP20200831032456 - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\ckeditor\ckeditor.php" />
     <Content Include="Scripts\ckeditor\ckeditor_basic.js" />

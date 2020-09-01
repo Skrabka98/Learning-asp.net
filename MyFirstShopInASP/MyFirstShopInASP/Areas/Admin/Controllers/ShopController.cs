@@ -48,6 +48,29 @@ namespace MyFirstShopInASP.Areas.Admin.Controllers
                 return id;
         }
 
-        
+        [HttpPost]
+        public ActionResult ReorderCategories(int[] id)
+        {
+            using (Db db = new Db())
+            {
+                int count = 1;
+                CategoryDTO dto;
+                foreach (var catId in id)
+                {
+                    dto = db.Categories.Find(catId);
+                    dto.Sorting = count;
+                    db.SaveChanges();
+                    count++;
+                }
+
+            }
+
+
+
+                return View();
+        }
+
+
+
     }
 }

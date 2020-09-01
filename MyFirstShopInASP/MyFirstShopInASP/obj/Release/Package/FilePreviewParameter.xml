@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="MyFirstShopInASP20200831032456" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\ppo\\39607\\Learning-asp\.net\\MyFirstShopInASP\\MyFirstShopInASP\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\ppo\\39607\\Learning-asp\.net\\MyFirstShopInASP\\MyFirstShopInASP\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="Add write permission to App_Data Folder" description="Add write permission to App_Data folder" value="MyFirstShopInASP20200831032456/App_Data" tags="Hidden">
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\ppo\\39607\\Learning-asp\.net\\MyFirstShopInASP\\MyFirstShopInASP\\obj\\Release\\Package\\PackageTmp\\App_Data$" />
+  </parameter>
+  <parameter name="Db-Web.config Connection String" description="" value="Server=(localdb)\MSSQLLocalDb; Integrated Security=true;AttachDbFileName=|DataDirectory|\ShopDatabase.mdf;" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\ppo\\39607\\Learning-asp\.net\\MyFirstShopInASP\\MyFirstShopInASP\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='Db']/@connectionString" />
+  </parameter>
+</parameters>
