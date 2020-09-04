@@ -84,6 +84,22 @@ namespace MyFirstShopInASP.Areas.Admin.Controllers
 
                 return RedirectToAction("Categories");
         }
+        [HttpPost]
+        public string RenameCategory(string newCategoryName, int id)
+        {
+            using (Db db = new Db())
+            {
+                if(db.Categories.Any(x => x.Name == newCategoryName)){
+                    return "bussyTitle";
+                }
+                CategoryDTO dto = db.Categories.Find(id);
+                dto.Name = newCategoryName;
+                dto.Slug = newCategoryName.Trim().Replace(" ", "-").ToLower();
+                db.SaveChanges();
+            }
+
+                return "good job";
+        }
 
 
     }
