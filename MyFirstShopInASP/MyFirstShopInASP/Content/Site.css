@@ -13,3 +13,9 @@ div.new-categories {
     margin-top: 80px;
     position: relative;
 }
+table.sorting.categories td{
+    padding: 25px !important;
+}
+.ajax-div-td{
+    position: absolute;
+}

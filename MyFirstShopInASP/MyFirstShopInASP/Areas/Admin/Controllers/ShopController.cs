@@ -70,6 +70,20 @@ namespace MyFirstShopInASP.Areas.Admin.Controllers
                 return View();
         }
 
+        public ActionResult DeleteCategory(int id)
+        {
+            using (Db db = new Db())
+            {
+                CategoryDTO dto = db.Categories.Find(id);
+                db.Categories.Remove(dto);
+                db.SaveChanges();
+            }
+
+
+
+
+                return RedirectToAction("Categories");
+        }
 
 
     }

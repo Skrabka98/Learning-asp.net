@@ -1,119 +1,176 @@
 ﻿@model IEnumerable<MyFirstShopInASP.Models.ViewModels.Shop.CategoryVM>
 
 @{
-    ViewBag.Title = "Kategorie";
+	ViewBag.Title = "Kategorie";
 }
 <div class="new-categories">
-    <h2>Kategorie</h2>
-    <input type="text" id="new-categories-name" />
+	<h2>Kategorie</h2>
+	<input type="text" id="new-categories-name" />
 
-    <p>
-        <a href="#" id="new-categoriesA">Dodaj kategorie</a>
-        <span class="ajax-text">
-            <img src="~/Content/img/ajax-loader.gif" />
-        </span>
-    </p>
+	<p>
+		<a href="#" id="new-categoriesA">Dodaj kategorie</a>
+		<span class="ajax-text">
+			<img src="~/Content/img/ajax-loader.gif" />
+		</span>
+	</p>
 
 </div>
 @if (!Model.Any())
 {
-    <h1 class="text-center">Brak kategorii do wyświetlenia</h1>
+	<h1 class="text-center">Brak kategorii do wyświetlenia</h1>
 }
 else
 {
-    <table class="table sorting categories" id="pages">
-        <tr class="home">
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
+	<table class="table sorting categories" id="pages">
+		<tr class="home">
+			<th>
+				@Html.DisplayNameFor(model => model.Name)
+			</th>
+			<th></th>
+		</tr>
 
-        @foreach (var item in Model)
-        {
-            <tr id="id_@item.Id">
-                <td>
-                    @Html.EditorFor(modelItem => item.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                </td>
-                <td>
-                    @Html.ActionLink("Usuń", "Delete", new { id = item.Id }, new { @class = "delete" })
-                </td>
-            </tr>
-        }
+		@foreach (var item in Model)
+		{
+			<tr id="id_@item.Id">
+				<td>
+					<div class="ajax-div-td"></div>
+					@Html.EditorFor(modelItem => item.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+				</td>
+				<td>
+					@Html.ActionLink("Usuń", "DeleteCategory", new { id = item.Id }, new { @class = "delete" })
+				</td>
+			</tr>
+		}
 
-    </table>
+	</table>
 }
 @section scripts{
-    <script src="http://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
 
-    <script>
-        $(function () {
-            var newCatA = $("a#new-categoriesA");
-            var newCatTextInput = $("#new-categories-name");
-            var ajaxText = $("span.ajax-text");
-            var table = $("table#pages tbody");
-            newCatTextInput.keyup(function (e) {
-                if (e.keyCode == 13) {
-                    newCatA.click();
-                }
-            })
-            newCatA.click(function (e) {
-                e.preventDefault();
-                var catName = newCatTextInput.val();
-                if (catName.length < 2) {
-                    alert("Kategoria musi zawierać minimum 2 znaki!");
-                    return false
-                }
-                ajaxText.show();
-                var url = "/admin/shop/AddCategory"
-                $.post(url, { catName: catName }, function (data) {
-                    var response = data.trim();
-                    if (response == "bussyTitle") {
-                        ajaxText.html("<span class='alert alert-danger'>Taka kategoria już istnieje!</span>")
-                        setTimeout(function () {
-                            ajaxText.fadeOut("fast", function () {
-                                ajaxText.html("<img src='~/Content/img/ajax-loader.gif' />");
-                            });
-                        }, 2000);
-                        return false;
-                    } else {
-                        if (!$("table#pages").length) {
-                            location.reload();
-                        }
-                        else {
-                            ajaxText.html("<span class='alert alert-success'>Dodano kategorie</span>")
-                            setTimeout(function () {
-                                ajaxText.fadeOut("fast", function () {
-                                    ajaxText.html("<img src='~/Content/img/ajax-loader.gif' />");
-                                });
-                                
-                            }, 2000);
-                            newCatTextInput.val("");
-                            var toAppend = $("table#pages tbody tr:last").clone();
-                            toAppend.attr("id", "id_" + data)
-                            toAppend.find("#item_Name").val(catName);
-                            toAppend.find("a.delete").attr("href", "/admin/shop/DeleteCategory/" + data);
-                            table.append(toAppend);
-                            table.sortable("refresh");
-                        }
-                    }
-                })
-            })
+	<script>
+		//dodawanie
+		$(function () {
+			var newCatA = $("a#new-categoriesA");
+			var newCatTextInput = $("#new-categories-name");
+			var ajaxText = $("span.ajax-text");
+			var table = $("table#pages tbody");
+			newCatTextInput.keyup(function (e) {
+				if (e.keyCode == 13) {
+					newCatA.click();
+				}
+			})
+			newCatA.click(function (e) {
+				e.preventDefault();
+				var catName = newCatTextInput.val();
+				if (catName.length < 2) {
+					alert("Kategoria musi zawierać minimum 2 znaki!");
+					return false
+				}
+				ajaxText.show();
+				var url = "/admin/shop/AddCategory"
+				$.post(url, { catName: catName }, function (data) {
+					var response = data.trim();
+					if (response == "bussyTitle") {
+						ajaxText.html("<span class='alert alert-danger'>Taka kategoria już istnieje!</span>")
+						setTimeout(function () {
+							ajaxText.fadeOut("fast", function () {
+								ajaxText.html("<img src='~/Content/img/ajax-loader.gif' />");
+							});
+						}, 2000);
+						return false;
+					} else {
+						if (!$("table#pages").length) {
+							location.reload();
+						}
+						else {
+							ajaxText.html("<span class='alert alert-success'>Dodano kategorie</span>")
+							setTimeout(function () {
+								ajaxText.fadeOut("fast", function () {
+									ajaxText.html("<img src='~/Content/img/ajax-loader.gif' />");
+								});
 
-            $("table#pages tbody").sortable({
-                items: "tr:not(.home)",
-                placeholder: "ui-state-highlight",
-                update: function () {
-                    var ids = $("table#pages tbody").sortable("serialize");
-                    var url = "/Admin/Shop/ReorderCategories";
-                    $.post(url, ids, function (data) {
-                    });
-                }
-            });
+							}, 2000);
+							newCatTextInput.val("");
+							var toAppend = $("table#pages tbody tr:last").clone();
+							toAppend.attr("id", "id_" + data)
+							toAppend.find("#item_Name").val(catName);
+							toAppend.find("a.delete").attr("href", "/admin/shop/DeleteCategory/" + data);
+							table.append(toAppend);
+							table.sortable("refresh");
+						}
+					}
+				})
+			})
+
+			//usuwanie
+			$("body").on("click", "a.delete", function () {
+				if (!confirm("Usunąć kategorię?")) {
+					return false;
+				}
+			})
+
+			//edycja
+			var orginalCategory;
+			$("table#pages input.text-box").dblclick(function () {
+				orginalCategory = $(this).val();
+				$(this).attr("readonly", false);
+			});
+			$("table#pages input.text-box").keyup(function (e) {
+				if (e.keyCode == 13) {
+					@(this).blur();
+				}
+			});
+			$("table#pages input.text-box").blur(function () {
+				var $this = $(this);
+				var ajaxDiv = $this.parent().find(".ajax-div-td");
+				var newCategoryName = $this.val();
+				var id = $this.parent().parent().attr("id").substring(3);
+				var url = "/admin/shop/renamecategory";
+				if (newCategoryName.length < 2) {
+					alert("Nazwa powinna zawierać minimum 2 znaki!");
+					$this.attr("readonly", true);
+					return false;
+				}
+				$.post(url, {
+					newCategoryName: newCategoryName,
+					id: id
+
+				}, function (data) {
+					var response = data.trim();
+					if (response == "bussyTitle") {
+						ajaxDiv.html("<span class='alert alert-danger'>Taka kategoria już istnieje!</span>").show();
+						$this.val(orginalCategory);
+					}
+					else {
+						ajaxDiv.html("<span class='alert alert-success'>Edytowano ketegorie.</span>").show();
+					}
+					setTimeout(function () {
+						ajaxDiv.fadeOut("fast", function () {
+							ajaxDiv.html("");
+						});
+					}, 3000);
+
+				}).done(function () {
+					$this.attr("readonly", true);
+				});
+			});
+
+			//sortowanie
+			$("table#pages tbody").sortable({
+				items: "tr:not(.home)",
+				placeholder: "ui-state-highlight",
+				update: function () {
+					var ids = $("table#pages tbody").sortable("serialize");
+					var url = "/Admin/Shop/ReorderCategories";
+					$.post(url, ids, function (data) {
+					});
+				}
+			});
 
 
-        })
 
-    </script>
+		});
+
+	</script>
 
 }
